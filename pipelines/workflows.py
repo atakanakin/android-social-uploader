@@ -47,6 +47,6 @@ def youtube(video_path: Path, caption: str) -> None:
     open_youtube_share(str(device_path))
 
     print("[+] Starting YouTube UI Automation sequence")
-    automate_youtube_upload("Automated Upload Title")
+    automate_youtube_upload(caption)
 
     print("[✓] YouTube Automation pipeline completed")

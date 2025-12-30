@@ -50,10 +50,10 @@ def _get_media_id(device_path: str) -> str:
         The media ID as a string.
     """
     real_path = device_path.replace("/sdcard/", "/storage/emulated/0/")
-    cmd = ["shell", "content", "query", "--uri", "content://media/external/video/media", "--projection", "_id", "--where", f"_data='{real_path}'"]
+    cmd = f"adb shell content query --uri content://media/external/video/media --projection _id --where \"_data=\\'{real_path}\\'\""
 
     for _ in range(10):
-        result = run_adb(cmd, shell=True)
+        result = subprocess.run(cmd, shell=True, capture_output=True, text=True)
         output = result.stdout.strip()
         
         if "_id=" in output:
@@ -73,8 +73,12 @@ def open_instagram_share(device_path: str) -> None:
         device_path: Path to the video file on the device.
     """
     scan_media(device_path)
-    media_id = _get_media_id(device_path)
-    content_uri = f"content://media/external/video/media/{media_id}"
+    
+    try:
+        media_id = _get_media_id(device_path)
+        content_uri = f"content://media/external/video/media/{media_id}"
+    except RuntimeError:
+        content_uri = f"file://{device_path}"
     
     print("[ADB] Warming up Instagram...")
     run_adb(["shell", "monkey", "-p", "com.instagram.android", "-c", "android.intent.category.LAUNCHER", "1"])
@@ -98,8 +102,12 @@ def open_youtube_share(device_path: str) -> None:
         device_path: Path to the video file on the device.
     """
     scan_media(device_path)
-    media_id = _get_media_id(device_path)
-    content_uri = f"content://media/external/video/media/{media_id}"
+    
+    try:
+        media_id = _get_media_id(device_path)
+        content_uri = f"content://media/external/video/media/{media_id}"
+    except RuntimeError:
+        content_uri = f"file://{device_path}"
 
     print("[ADB] Launching YouTube Upload Intent...")
     run_adb([

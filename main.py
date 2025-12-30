@@ -8,7 +8,7 @@ from utils.helpers import read_caption
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Android Social Media Upload Automation")
     parser.add_argument("--video", required=True, type=Path, help="Path to the local video file")
-    parser.add_argument("--platform", choices=["instagram", "youtube", "all"], default="instagram", help="Platform to upload to (default: instagram)")
+    parser.add_argument("--platform", choices=["instagram", "youtube", "all"], default="all", help="Platform to upload to (default: all)")
 
     args = parser.parse_args()
 

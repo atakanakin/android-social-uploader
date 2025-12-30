@@ -2,12 +2,11 @@ import uiautomator2 as u2
 from utils.helpers import human_sleep
 
 
-def automate_youtube_upload(title: str, description: str = "") -> None:
+def automate_youtube_upload(title: str) -> None:
     """Automate the YouTube video upload flow.
 
     Args:
         title: The title for the video.
-        description: The description (currently unused).
     """
     d = u2.connect()
     try:
