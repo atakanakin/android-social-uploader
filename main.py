@@ -14,6 +14,11 @@ if __name__ == "__main__":
         "--video", required=True, type=Path, help="Path to the local video file"
     )
     parser.add_argument(
+        "--move-path",
+        type=Path,
+        help="Optional new path to move the video after upload",
+    )
+    parser.add_argument(
         "--platform",
         choices=["instagram", "youtube", "all"],
         default="all",
@@ -38,4 +43,10 @@ if __name__ == "__main__":
 
     print(f"[+] Deleting video from device: {device_path}")
     delete_video(str(device_path))
+
+    if args.move_path:
+        args.move_path.mkdir(parents=True, exist_ok=True)
+        new_path = args.move_path / args.video.name
+        args.video.replace(new_path)
+
     print("[✓] Upload automation completed.")
