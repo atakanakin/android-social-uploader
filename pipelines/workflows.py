@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from core.device import push_video, open_instagram_share, open_youtube_share
+from core.device import open_instagram_share, open_youtube_share
 from platforms.instagram import automate_reels_post
 from platforms.youtube import automate_youtube_upload
 
