@@ -50,15 +50,6 @@ def automate_youtube_upload(title: str) -> None:
         d(description="Next").click()
         human_sleep()
 
-    not_for_kids = d(textContains="not made for kids")
-
-    if not_for_kids.exists(timeout=5):
-        print("[UI-YT] Selecting 'Not made for kids'")
-        not_for_kids.click()
-        human_sleep()
-    else:
-        print("[UI-YT] WARNING: 'Made for kids' selection not found. Upload might fail.")
-
     upload_btn = d(textContains="Upload Short")
 
     if upload_btn.exists(timeout=5):
