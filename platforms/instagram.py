@@ -10,32 +10,32 @@ def automate_reels_post(caption: str) -> None:
     """
     d = u2.connect()
     d.dump_hierarchy()
-    print("[UI] Connected to device via uiautomator2")
+    print("[UI-INSTA] Connected to device via uiautomator2")
     human_sleep()
 
     if d(text="Instagram").exists(timeout=5):
-        print("[UI] Clicking 'Instagram' on Share Sheet")
+        print("[UI-INSTA] Clicking 'Instagram' on Share Sheet")
         d(text="Instagram").click()
         human_sleep()
 
     if d(textContains="Reel").exists(timeout=10):
-        print("[UI] Selecting 'Reel' mode")
+        print("[UI-INSTA] Selecting 'Reel' mode")
         d(textContains="Reel").click()
         human_sleep()
 
     if d(text="Next").exists(timeout=10):
-        print("[UI] Clicking 'Next'")
+        print("[UI-INSTA] Clicking 'Next'")
         d(text="Next").click()
         human_sleep()
 
-    print("[UI] Looking for caption field...")
+    print("[UI-INSTA] Looking for caption field...")
     caption_box = d(className="android.widget.EditText")
 
     if not caption_box.exists():
         caption_box = d(textContains="caption")
 
     if caption_box.exists(timeout=10):
-        print("[UI] Caption field found. Writing...")
+        print("[UI-INSTA] Caption field found. Writing...")
         caption_box.click()
         human_sleep()
         d.send_keys(caption)
@@ -45,24 +45,24 @@ def automate_reels_post(caption: str) -> None:
         human_sleep()
 
         if d(text="OK").exists(timeout=3):
-            print("[UI] Clicking 'OK' button")
+            print("[UI-INSTA] Clicking 'OK' button")
             d(text="OK").click()
         elif d(description="Done").exists(timeout=3):
-            print("[UI] Clicking 'Done' checkmark")
+            print("[UI-INSTA] Clicking 'Done' checkmark")
             d(description="Done").click()
 
         human_sleep()
     else:
-        print("[UI] WARNING: Caption field NOT found!")
+        print("[UI-INSTA] WARNING: Caption field NOT found!")
 
     if d(text="Share").exists(timeout=5):
-        print("[UI] Clicking 'Share'")
+        print("[UI-INSTA] Clicking 'Share'")
         d(text="Share").click()
-        print("[UI] Share button clicked")
+        print("[UI-INSTA] Share button clicked")
     elif d(textContains="Share").exists(timeout=5):
         d(textContains="Share").click()
-        print("[UI] Share button clicked (fuzzy)")
+        print("[UI-INSTA] Share button clicked (fuzzy)")
     else:
-        print("[UI] Share button NOT found.")
+        print("[UI-INSTA] Share button NOT found.")
 
     human_sleep()
