@@ -20,6 +20,17 @@ def run_adb(command: list[str], shell: bool = False) -> CompletedProcess:
     )
 
 
+def ensure_device_connected(device_ip: str) -> None:
+    """Ensure that the Android device is connected via ADB over network.
+
+    Args:
+        device_ip: IP address of the Android device.
+    """
+    print(f"[+] Connecting to device at {device_ip}...")
+    run_adb(["connect", device_ip])
+    time.sleep(3)
+
+
 def push_video(local_path: str, device_path: str) -> None:
     """Push a video file to the Android device.
 
